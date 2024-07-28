@@ -12,14 +12,14 @@
 async function getUserData(id) {
 		const response = await fetch(`https://reqres.in/api/users/${id}`);
 		if (!response.ok) {
-			throw new Error("Ошибка со стороны сервера");
+			throw new Error(await response.text());
 		}
 		const respData = await response.json();
 
 		return respData.data;
 	}
 
-getUserData(3)
+getUserData(1)
 .then(result => console.log(result))
 .catch(err => alert(`Ошибка: ${err.message}`));
 
