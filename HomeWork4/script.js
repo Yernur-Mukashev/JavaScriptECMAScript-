@@ -9,29 +9,19 @@
 
 // Работа должна быть выполнена с API: https://reqres.in/
 
-async function getUserData(userId) {
-	const url = "https://reqres.in/api/users?page=2";
-	try {
-		const response = await fetch(url);
+async function getUserData(id) {
+		const response = await fetch(`https://reqres.in/api/users/${id}`);
 		if (!response.ok) {
 			throw new Error("Ошибка со стороны сервера");
 		}
-		const result = await response.json();
+		const respData = await response.json();
 
-		const user = result.data.find((user) => user.id === userId);
-		if (!user) {
-			throw new Error(`Пользователь с указанным ID: ${userId} не найден`);
-		}
-		console.log(user);
-	} catch (error) {
-		alert(`Ошибка: ${error.message}`);
+		return respData.data;
 	}
-}
 
-getUserData(8);
-getUserData(11);
-getUserData(4);
-getUserData(13);
+getUserData(3)
+.then(result => console.log(result))
+.catch(err => alert(`Ошибка: ${err.message}`));
 
 ////------------------------------------------------------------------------------
 
